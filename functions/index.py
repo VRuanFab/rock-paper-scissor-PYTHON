@@ -6,7 +6,6 @@ class Challenge:
         match self.challenge:
             case 1:
                 print("desafio 1 selecionado")
-                # self.tutorial()
                 self.challenge1()
             
             case 2:
@@ -19,11 +18,18 @@ class Challenge:
         self.response = valor
 
     def tutorial(self):
-        return print("tutorial")
+        print("escolha sua mão")
+        print("""
+1 -
+    ______
+___/   ____)______
+            ______)
+        __________)
+        (____)
+---.__(___)""")
 
     def challenge1(self):
-        print("hellooooou")
-        return self.tutorial()
+        self.tutorial()
 
 
 class CallFunction(Challenge):
