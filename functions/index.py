@@ -1,4 +1,4 @@
-import keyboard
+import msvcrt
 import sys
 
 class Challenge:
@@ -33,7 +33,8 @@ class Challenge:
         
         while True:
             try:
-                match keyboard.read_key():
+                tecla = msvcrt.getch().decode()
+                match tecla:
                     case "1":
                         self.definirEscolhaUsuario("pedra")
                         break
@@ -50,7 +51,7 @@ class Challenge:
 
         print(f"sua escolha foi {self.escolhaUsuario}")
         print("programa encerrado até o momento, pressione qualquer tecla para finalizar")
-        if keyboard.read_key():
+        if msvcrt.getch():
             sys.exit(0)
 
 class CallFunction(Challenge):
