@@ -1,3 +1,6 @@
+import keyboard
+import sys
+
 class Challenge:
     def __init__(self, challenge):
         self.challenge = challenge
@@ -14,23 +17,41 @@ class Challenge:
             case 3:
                 print("desafio 3 selecionado")
 
-    def definirResultado(self, valor):
-        self.response = valor
+    def definirEscolhaUsuario(self, valor):
+        self.escolhaUsuario = valor
 
     def tutorial(self):
-        print("escolha sua mão")
-        print("""
-1 -
-    ______
-___/   ____)______
-            ______)
-        __________)
-        (____)
----.__(___)""")
+        print("escolha sua jogada")
+        return print("""
+1 - pedra
+2 - papel
+3 - tesoura
+""")
 
     def challenge1(self):
         self.tutorial()
+        
+        while True:
+            try:
+                match keyboard.read_key():
+                    case "1":
+                        self.definirEscolhaUsuario("pedra")
+                        break
+                    
+                    case "2":
+                        self.definirEscolhaUsuario("papel")
+                        break
+                    
+                    case "3":
+                        self.definirEscolhaUsuario("tesoura")
+                        break
+            except:
+                pass
 
+        print(f"sua escolha foi {self.escolhaUsuario}")
+        print("programa encerrado até o momento, pressione qualquer tecla para finalizar")
+        if keyboard.read_key():
+            sys.exit(0)
 
 class CallFunction(Challenge):
     def __init__(self, challenge):
