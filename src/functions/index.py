@@ -1,5 +1,6 @@
 import msvcrt
 import sys
+import time
 
 class Challenge:
     def __init__(self, challenge):
