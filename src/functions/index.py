@@ -1,22 +1,35 @@
 import msvcrt
 import sys
 import time
+# import curses
+from src import cursesAssets
 
-class Challenge:
+class Challenge(cursesAssets.CursesClass):
     def __init__(self, challenge):
         self.challenge = challenge
+
+        # self.classCurse = cursesAssets.CursesClass([
+        #     {"value": 1, "desc": "Pedra"},
+        #     {"value": 2, "desc": "Papel"},
+        #     {"value": 3, "desc": "Tesoura"}
+        #     ])
+
+        super().__init__([
+            {"desc": "Pedra", "value": 1},
+            {"desc": "Papel", "value": 2},
+            {"desc": "Tesoura", "value": 3}
+            ])
 
     def quantidade_de_desafio(self):
         match self.challenge:
             case 1:
-                print("desafio 1 selecionado")
+                self.setString(strg="md1 selecionado")
                 self.challenge1()
             
             case 2:
-                print("desafio 2 selecionado")
+                self.setString(strg="md3 selecionado")
 
-            case 3:
-                print("desafio 3 selecionado")
+
 
     def definirEscolhaUsuario(self, valor):
         self.escolhaUsuario = valor

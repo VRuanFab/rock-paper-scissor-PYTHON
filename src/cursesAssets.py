@@ -1,4 +1,5 @@
 import curses
+import time
 
 class CursesClass:
     def __init__(self, options):
@@ -17,8 +18,10 @@ class CursesClass:
         
         self.inpt = stdscr
         
-    def opcoes(self):
-        self.options.append("cancelar")
+    def opcoes(self, haveCancel = False):
+        if haveCancel == True:
+            self.options.append({"desc":"cancelar", "value": len(self.options) + 1})
+        
         curses.curs_set(0)
         inpt = self.inpt
         inpt.nodelay(False)
@@ -30,21 +33,32 @@ class CursesClass:
             
             for i, opcao in enumerate(self.options):
                 if i == self.indice:
-                    inpt.addstr(i + 2, 0, f" > {opcao}", curses.A_BOLD | curses.color_pair(1)) if opcao != "cancelar" else inpt.addstr(i + 2, 0, f"-- {opcao} --", curses.A_BOLD | curses.color_pair(3))
-                    
-                elif opcao == "cancelar":
-                    inpt.addstr(i + 2, 0, f"-- {opcao} --", curses.color_pair(2))
+                    if haveCancel == True:
+                        inpt.addstr(i + 2, 0, f" > {opcao['desc']}", curses.A_BOLD | curses.color_pair(1)) if opcao['desc'] != "cancelar" else inpt.addstr(i + 2, 0, f"-- {opcao['desc']} --", curses.A_BOLD | curses.color_pair(3))
+                    else:
+                        inpt.addstr(i + 2, 0, f" > {opcao['desc']}", curses.A_BOLD | curses.color_pair(1))
+
+                elif haveCancel == True and opcao['desc'] == "cancelar":
+                    inpt.addstr(i + 2, 0, f"-- {opcao['desc']} --", curses.color_pair(2))
                     
                 else:
-                    inpt.addstr(i + 2, 0, f" {opcao}")
+                    inpt.addstr(i + 2, 0, f" {opcao['desc']}")
 
             tecla = inpt.getch()
             
             if tecla == curses.KEY_UP:
                 self.indice = (self.indice - 1) % len(self.options)
-                print(self.indice)
             elif tecla == curses.KEY_DOWN:
                 self.indice = (self.indice + 1) % len(self.options)
-                print(self.indice)
             elif tecla == 10:
-                return self.options[self.indice]
+                return self.options[self.indice]['value']
+            
+    def setString(self, strg, positionX = 0, positionY = 0):
+        curses.curs_set(0)
+        inpt = self.inpt
+        inpt.clear()
+        inpt.nodelay(False)
+        inpt.timeout(100)
+        inpt.addstr(positionY, positionX, strg)
+        inpt.refresh()
+        time.sleep(3)

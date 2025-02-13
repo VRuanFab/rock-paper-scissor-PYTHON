@@ -1,5 +1,5 @@
 from src.functions import index
-from src import curses
+from src import cursesAssets
 import os
 import msvcrt
 import sys
@@ -43,10 +43,11 @@ import sys
 #         game.escolherDesafio()
 
 def main():
-    curses_opt = curses.CursesClass(["Pedra", "Papel", "Tesoura"])
-    resultado = curses_opt.opcoes()
-    
-    print(resultado)
+    curses_opt = cursesAssets.CursesClass([{'desc': "md1", 'value': 1}, {'desc': "md3", 'value': 2}])
+    desafio_selecionado = curses_opt.opcoes(haveCancel=True)
+
+    init_game = index.CallFunction(desafio_selecionado)
+    init_game.escolherDesafio()
 
 if __name__ == "__main__":
     main()
