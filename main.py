@@ -46,7 +46,7 @@ def main():
     curses_opt = cursesAssets.CursesClass([{'desc': "md1", 'value': 1}, {'desc': "md3", 'value': 2}])
     desafio_selecionado = curses_opt.opcoes(haveCancel=True)
 
-    init_game = index.CallFunction(desafio_selecionado)
+    init_game = index.CallFunction(desafio_selecionado['value'])
     init_game.escolherDesafio()
 
 if __name__ == "__main__":

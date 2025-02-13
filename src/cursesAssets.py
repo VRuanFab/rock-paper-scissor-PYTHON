@@ -18,7 +18,7 @@ class CursesClass:
         
         self.inpt = stdscr
         
-    def opcoes(self, haveCancel = False):
+    def opcoes(self, header_text = '', haveCancel = False, text_before = False):
         if haveCancel == True:
             self.options.append({"desc":"cancelar", "value": len(self.options) + 1})
         
@@ -29,7 +29,11 @@ class CursesClass:
         
         while True:
             inpt.clear()
-            inpt.addstr(0, 0, "Use ↑ ↓ para navegar e Enter para selecionar\n", curses.A_BOLD)
+            
+            if text_before == False:
+                inpt.addstr(0, 0, "Use ↑ ↓ para navegar e Enter para selecionar\n", curses.A_BOLD)
+            else:
+                inpt.addstr(0, 0, header_text, curses.A_BOLD)
             
             for i, opcao in enumerate(self.options):
                 if i == self.indice:
@@ -51,7 +55,7 @@ class CursesClass:
             elif tecla == curses.KEY_DOWN:
                 self.indice = (self.indice + 1) % len(self.options)
             elif tecla == 10:
-                return self.options[self.indice]['value']
+                return self.options[self.indice]
             
     def setString(self, strg, positionX = 0, positionY = 0):
         curses.curs_set(0)
@@ -61,4 +65,4 @@ class CursesClass:
         inpt.timeout(100)
         inpt.addstr(positionY, positionX, strg)
         inpt.refresh()
-        time.sleep(3)
+        time.sleep(1.2)
